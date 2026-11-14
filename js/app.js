@@ -36,7 +36,12 @@
   const money = n => `${D.config.moneda} ${n}`;
   const fmtDate = d => d.toLocaleDateString({ es: 'es-PE', en: 'en-US', fr: 'fr-FR' }[S.lang], { day: 'numeric', month: 'short', year: 'numeric' });
   const byId = id => D.comunidades.find(c => c.id === id);
-  const onMap = () => D.comunidades.filter(c => c.lat != null);
+  const visibles = () => D.comunidades.filter(c => !c.oculta);
+  const onMap = () => visibles().filter(c => c.lat != null);
+  // Foto de la comunidad (imagen referencial); si no tiene, usa la ilustración
+  const foto = (c, mini, seed, kind, extra) => c.foto
+    ? `<img src="${mini ? c.fotoMini : c.foto}" alt="${esc(c.nombre)}" loading="lazy" decoding="async"${extra ? ` style="${extra}"` : ''}>`
+    : scene(seed, kind);
   const waLink = text => `https://wa.me/${D.config.whatsapp}?text=${encodeURIComponent(text)}`;
 
   /* ---------------- ilustraciones (en lugar de fotos) ---------------- */
@@ -132,7 +137,7 @@
     map: () => window.L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>' }),
     sat: () => window.L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxZoom: 18, attribution: 'Imágenes &copy; Esri' })
   };
-  const pinHTML = c => `<div class="wrapp"><span class="ph">${scene(c.seed, c.escena)}</span><span class="tip"></span><span class="lbl">${esc(c.nombre)}</span></div>`;
+  const pinHTML = c => `<div class="wrapp"><span class="ph">${foto(c, true, c.seed, c.escena)}</span><span class="tip"></span><span class="lbl">${esc(c.nombre)}</span></div>`;
   function addMarkers(map, onClick) {
     const Lf = window.L, markers = {};
     const cluster = Lf.markerClusterGroup({
@@ -208,7 +213,7 @@
       html = `<div class="thumb">${scene(2, 'city')}</div><div><h3>${t('iqTitle')}</h3><p>${t('iqText')}</p></div>`;
     } else {
       const c = byId(S.sel), d = km(D.iquitos, c);
-      html = `<div class="thumb">${scene(c.seed, c.escena)}</div><div><h3>${esc(c.nombre)}</h3><p>${esc(L(c.lema))}</p><p style="font-weight:600;color:var(--tinta);margin-top:2px">${d ? `≈ ${d} km · ` : ''}${esc(L(c.rio))}</p><div class="row" style="margin-top:8px"><button class="btn sm pink" data-open="${c.id}">${t('see')}</button></div></div>`;
+      html = `<div class="thumb">${foto(c, true, c.seed, c.escena)}</div><div><h3>${esc(c.nombre)}</h3><p>${esc(L(c.lema))}</p><p style="font-weight:600;color:var(--tinta);margin-top:2px">${d ? `≈ ${d} km · ` : ''}${esc(L(c.rio))}</p><div class="row" style="margin-top:8px"><button class="btn sm pink" data-open="${c.id}">${t('see')}</button></div></div>`;
     }
     pk.innerHTML = html + `<button class="x" data-act="closepeek" aria-label="${t('close')}">×</button>`;
     pk.hidden = false; document.body.dataset.peek = '1';
@@ -221,7 +226,7 @@
   }
   function pcard(c) {
     const d = km(D.iquitos, c);
-    return `<button class="pcard" data-open="${c.id}"><span class="img">${scene(c.seed + 10, c.escena)}</span><span class="grad"></span><span class="tags">${tagFor(c, true)}</span><span class="tx"><h3>${esc(c.nombre)}</h3><small>${esc(L(c.rio))}${d ? ` · ≈ ${d} km` : ''}</small></span></button>`;
+    return `<button class="pcard" data-open="${c.id}"><span class="img">${foto(c, false, c.seed + 10, c.escena)}</span><span class="grad"></span><span class="tags">${tagFor(c, true)}</span>${c.foto ? `<span class="ref">${t('ref')}</span>` : ''}<span class="tx"><h3>${esc(c.nombre)}</h3><small>${esc(L(c.rio))}${d ? ` · ≈ ${d} km` : ''}</small></span></button>`;
   }
   function legendCard(c, key, full) {
     const lg = D.leyendas[c.leyenda]; if (!lg) return '';
@@ -242,7 +247,7 @@
   /* ---------------- vistas ---------------- */
   function vHome() {
     const uniq = []; const seen = {};
-    D.comunidades.forEach(c => { if (D.leyendas[c.leyenda] && !seen[c.leyenda]) { seen[c.leyenda] = 1; uniq.push(c); } });
+    visibles().forEach(c => { if (D.leyendas[c.leyenda] && !seen[c.leyenda]) { seen[c.leyenda] = 1; uniq.push(c); } });
     return `<section class="hero"><canvas id="heroCanvas" aria-hidden="true"></canvas><div class="shade"></div>
         <div class="copy"><span class="kicker">${t('heroKicker')}</span><h1>${t('heroTitle')}</h1><p class="sub">${t('heroSub')}</p>
         <button class="btn pink" data-act="explore">${t('explore')} ${IC.down}</button></div></section>
@@ -250,7 +255,7 @@
         <section class="sec" id="secMap"><span class="kicker">${t('mapKicker')}</span><h2 class="sec-title">${t('mapTitle')}</h2>
           <div class="map-card"><div id="mapPreview"></div><button class="cover" data-act="openmap" aria-label="${t('fullMap')}"><span class="btn pink">${IC.map} ${t('fullMap')}</span></button></div></section>
         <section class="sec"><div class="row" style="justify-content:space-between;align-items:flex-end"><div><span class="kicker">${t('commKicker')}</span><h2 class="sec-title" style="margin-bottom:12px">${t('commTitle')}</h2></div><button class="btn ghost sm" data-tab="list" style="margin-bottom:16px">${t('seeAll')}</button></div>
-          <div class="carousel">${D.comunidades.map(pcard).join('')}</div></section>
+          <div class="carousel">${visibles().map(pcard).join('')}</div></section>
         <section class="sec"><div class="band"><div><span class="kicker">${t('treeKicker')}</span><h2 style="margin-top:6px">${t('treeTitleHome')}</h2></div>
           <div class="steps3">${[['how1', 2], ['how2', 4], ['how3', 6]].map(([k, st], i) => `<div class="st"><span class="ill">${sprout(st, 20 + i)}</span><b>${t(k)}</b></div>`).join('')}</div>
           <div><button class="btn light" data-tab="tree">${t('tabTree')} →</button></div></div></section>
@@ -261,11 +266,11 @@
   }
   function vList() {
     return `<div class="wrap"><div class="page-head"><span class="kicker">${t('commKicker')}</span><h1>${t('commTitle')}</h1></div>
-      <div class="grid-cards" style="margin-top:16px">${D.comunidades.map(pcard).join('')}</div>
+      <div class="grid-cards" style="margin-top:16px">${visibles().map(pcard).join('')}</div>
       <div style="margin-top:18px"><button class="btn pink" data-act="openmap">${IC.map} ${t('fullMap')}</button></div></div>${footer(true)}`;
   }
   function vLegends() {
-    const cs = D.comunidades.filter(c => D.leyendas[c.leyenda]);
+    const cs = visibles().filter(c => D.leyendas[c.leyenda]);
     return `<div class="wrap"><div class="page-head"><span class="kicker">${t('legKicker')}</span><h1>${t('legendsTitle')}</h1><p>${t('legendsSub')}</p></div>
       <div class="lg-grid" style="margin-top:16px">${cs.map(c => legendCard(c, 'L-' + c.id, true)).join('')}</div>
       <div style="display:grid;gap:10px;margin-top:18px">${lockedRow('🎧', t('fullCollection'), t('fullCollectionTx'))}${lockedRow('📖', t('printedBook'), t('printedBookTx'))}</div></div>${footer(true)}`;
@@ -274,12 +279,12 @@
     const c = byId(id); if (!c) return vList();
     const d = km(D.iquitos, c);
     const lg = D.leyendas[c.leyenda];
-    return `<section class="dhero">${scene(c.seed + 20, c.escena)}<div class="grad"></div><button class="back" data-back>← ${t('back')}</button><span class="cap">${t('illus')}</span>
+    return `<section class="dhero">${foto(c, false, c.seed + 20, c.escena)}<div class="grad"></div><button class="back" data-back>← ${t('back')}</button><span class="cap">${c.foto ? t('ref') : t('illus')}</span>
         <div class="copy"><div class="row" style="gap:6px">${tagFor(c, true)}</div><h1>${esc(c.nombre)}</h1><p class="lema">${esc(L(c.lema))}</p>
         <div class="chips">${d ? `<span class="chip">${IC.pin}≈ ${d} km ${t('fromIq')}</span>` : ''}<span class="chip">${IC.clock}${c.tiempo ? esc(L(c.tiempo)) : t('toConfirm')}</span><span class="chip">${IC.river}${esc(L(c.rio))}</span></div></div></section>
       <div class="wrap narrow">
         <p class="lead">${esc(L(c.frase))}</p>
-        <div class="vibes">${L(c.porQue).map((w, i) => `<div class="vibe"><div class="ill">${scene(c.seed + 31 + i, i === 1 ? 'food' : (i === 2 ? 'forest' : c.escena))}</div><b>${esc(w)}</b></div>`).join('')}</div>
+        <div class="vibes${c.foto ? ' solo-texto' : ''}">${L(c.porQue).map((w, i) => `<div class="vibe">${c.foto ? `<span class="vn">${i + 1}</span>` : `<div class="ill">${scene(c.seed + 31 + i, i === 1 ? 'food' : (i === 2 ? 'forest' : c.escena))}</div>`}<b>${esc(w)}</b></div>`).join('')}</div>
         <section class="dsec"><h2>${t('exps')}</h2>${c.experiencias.map(e => `<div class="exp"><div><b>${esc(L(e.n))}</b><small>${esc(L(e.d))} · ${t('perPerson')}</small></div><span class="price">${money(e.p)}</span></div>`).join('')}</section>
         <section class="dsec plant"><h2>${t('plantHere')}</h2><div class="sp-row">${c.especies.map((k, i) => `<span class="sp"><span class="ic2">${sprout(3, i * 3 + 5)}</span>${esc(D.especies[k].nombre)}</span>`).join('')}</div><div><button class="btn ghost sm" data-tab="tree">${t('tabTree')} →</button></div></section>
         ${lg ? `<section class="dsec"><h2>${t('legKicker')}</h2>${legendCard(c, 'D-' + c.id, true)}</section>` : ''}

@@ -312,3 +312,14 @@ input[type="date"].in::-webkit-date-and-time-value{text-align:left}
 }
 .foot .brand{display:block;width:96px;height:auto;margin:0 auto 10px}
 .about-logo{display:block;width:120px;height:auto;margin:0 auto 12px}
+
+/* ---------- fotos de las comunidades (imágenes referenciales) ---------- */
+.pin .ph img,.peek .thumb img,.pcard .img img,.vibe .ill img{width:100%;height:100%;object-fit:cover;display:block}
+.vibe .ill{overflow:hidden}
+.dhero > img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.pcard .ref{position:absolute;top:14px;right:14px;font-size:10px;font-weight:500;color:rgba(255,255,255,.55);letter-spacing:.02em}
+.dhero .cap{background:none;color:rgba(255,255,255,.55);font-size:10px;font-weight:500;padding:0;top:auto;bottom:10px;right:14px}
+.vibes.solo-texto .vibe{display:flex;align-items:center;gap:10px;padding:12px}
+.vibes.solo-texto .vibe b{padding:0}
+.vibes.solo-texto .vn{flex:0 0 32px;height:32px;border-radius:50%;background:var(--bufeo);color:#fff;display:grid;place-items:center;font-family:var(--display);font-weight:800}
+@media (max-width:520px){.vibes.solo-texto{grid-template-columns:1fr}.vibes.solo-texto .vibe:first-child{grid-column:auto}}

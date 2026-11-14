@@ -52,6 +52,7 @@ window.UWATA = {
   comunidades: [
     {
       id: 'yanashi', nombre: 'Yanashi', real: true,
+      oculta: true, // ⚠️ se mostrará cuando tengamos sus coordenadas y una foto real
       lat: null, lng: null, // ⚠️ falta poner sus coordenadas reales
       seed: 4, escena: 'village',
       rio: { es: 'Ribera amazónica', en: 'Amazon riverbank', fr: 'Rive amazonienne' },
@@ -73,6 +74,7 @@ window.UWATA = {
     },
     {
       id: 'lupuna', nombre: 'Puerto Lupuna', ejemplo: true,
+      foto: 'img/fotos/lupuna.webp', fotoMini: 'img/fotos/lupuna-mini.webp', // imagen referencial (IA)
       lat: -3.83, lng: -73.62, seed: 1, escena: 'forest',
       rio: { es: 'Río Nanay', en: 'Nanay River', fr: 'Rivière Nanay' },
       tiempo: { es: '≈ 1 h', en: '≈ 1 h', fr: '≈ 1 h' },
@@ -89,6 +91,7 @@ window.UWATA = {
     },
     {
       id: 'aguajal', nombre: 'Caño Aguajal', ejemplo: true,
+      foto: 'img/fotos/aguajal.webp', fotoMini: 'img/fotos/aguajal-mini.webp', // imagen referencial (IA)
       lat: -4.43, lng: -73.7, seed: 6, escena: 'village',
       rio: { es: 'Río Marañón', en: 'Marañón River', fr: 'Fleuve Marañón' },
       tiempo: { es: '≈ 3 h', en: '≈ 3 h', fr: '≈ 3 h' },
@@ -105,6 +108,7 @@ window.UWATA = {
     },
     {
       id: 'bufeo', nombre: 'Bufeo Colorado', ejemplo: true,
+      foto: 'img/fotos/bufeo.webp', fotoMini: 'img/fotos/bufeo-mini.webp', // imagen referencial (IA)
       lat: -3.36, lng: -72.1, seed: 2, escena: 'dolphin',
       rio: { es: 'Río Amazonas', en: 'Amazon River', fr: 'Fleuve Amazone' },
       tiempo: { es: '≈ 4 h', en: '≈ 4 h', fr: '≈ 4 h' },
@@ -121,6 +125,7 @@ window.UWATA = {
     },
     {
       id: 'ojodecocha', nombre: 'Ojo de Cocha', ejemplo: true,
+      foto: 'img/fotos/ojodecocha.webp', fotoMini: 'img/fotos/ojodecocha-mini.webp', // imagen referencial (IA)
       lat: -4.95, lng: -73.82, seed: 7, escena: 'village',
       rio: { es: 'Río Ucayali', en: 'Ucayali River', fr: 'Fleuve Ucayali' },
       tiempo: { es: '≈ 6 h', en: '≈ 6 h', fr: '≈ 6 h' },
@@ -137,6 +142,7 @@ window.UWATA = {
     },
     {
       id: 'nuevopaiche', nombre: 'Nuevo Paiche', ejemplo: true,
+      foto: 'img/fotos/nuevopaiche.webp', fotoMini: 'img/fotos/nuevopaiche-mini.webp', // imagen referencial (IA)
       lat: -2.75, lng: -73.45, seed: 8, escena: 'forest',
       rio: { es: 'Río Napo', en: 'Napo River', fr: 'Rivière Napo' },
       tiempo: { es: '≈ 8 h', en: '≈ 8 h', fr: '≈ 8 h' },
@@ -150,38 +156,6 @@ window.UWATA = {
       ],
       experiencias: [{ n: { es: 'Caminata nocturna con guía', en: 'Guided night walk', fr: 'Marche nocturne guidée' }, d: { es: '3 horas', en: '3 hours', fr: '3 heures' }, p: 22 }],
       leyenda: 'chullachaqui'
-    },
-    {
-      id: 'islahuito', nombre: 'Isla Huito', ejemplo: true,
-      lat: -3.85, lng: -70.85, seed: 5, escena: 'village',
-      rio: { es: 'Río Amazonas · Trapecio', en: 'Amazon River · Trapezium', fr: 'Fleuve Amazone · Trapèze' },
-      tiempo: { es: '≈ 10 h', en: '≈ 10 h', fr: '≈ 10 h' },
-      especies: ['camu', 'aguaje'],
-      lema: { es: 'Una isla en medio del gran río', en: 'An island in the middle of the great river', fr: 'Une île au milieu du grand fleuve' },
-      frase: { es: 'Frutas de la chacra, música de fiesta y el río por todos lados.', en: 'Farm fruit, festival music and the river all around.', fr: 'Fruits du jardin, musique de fête et le fleuve tout autour.' },
-      porQue: { es: ['Frutas amazónicas', 'Fiesta del pueblo', 'Vista del Amazonas'], en: ['Amazonian fruit', 'Village festival', 'Amazon views'], fr: ['Fruits amazoniens', 'Fête du village', 'Vue sur l’Amazone'] },
-      llegar: [
-        { es: ['Bote rápido Iquitos – Caballococha', 'Viaje largo, sale temprano.'], en: ['Iquitos – Caballococha speedboat', 'Long trip, leaves early.'], fr: ['Bateau rapide Iquitos – Caballococha', 'Long trajet, départ tôt.'] },
-        { es: ['Canoa a la isla', ''], en: ['Canoe to the island', ''], fr: ['Pirogue jusqu’à l’île', ''] }
-      ],
-      experiencias: [{ n: { es: 'Día de frutas y chacra', en: 'Fruit and farm day', fr: 'Journée fruits et jardin' }, d: { es: 'Día completo', en: 'Full day', fr: 'Journée' }, p: 30 }],
-      leyenda: 'bufeo'
-    },
-    {
-      id: 'puertoshapaja', nombre: 'Puerto Shapaja', ejemplo: true,
-      lat: -5.15, lng: -75.55, seed: 9, escena: 'forest',
-      rio: { es: 'Río Huallaga', en: 'Huallaga River', fr: 'Fleuve Huallaga' },
-      tiempo: { es: '≈ 1 día', en: '≈ 1 day', fr: '≈ 1 jour' },
-      especies: ['aguaje', 'shihuahuaco'],
-      lema: { es: 'La puerta a Pacaya Samiria', en: 'The gateway to Pacaya Samiria', fr: 'La porte de Pacaya Samiria' },
-      frase: { es: 'Desde aquí se entra a la reserva nacional más grande del Perú.', en: 'From here you enter Peru’s largest national reserve.', fr: 'D’ici, on entre dans la plus grande réserve nationale du Pérou.' },
-      porQue: { es: ['Entrada a la reserva', 'Lagunas y aves', 'Campamento en la selva'], en: ['Gateway to the reserve', 'Lakes and birds', 'Jungle camp'], fr: ['Accès à la réserve', 'Lacs et oiseaux', 'Camp dans la jungle'] },
-      llegar: [
-        { es: ['Lancha Iquitos – Lagunas', 'Viaje de más de un día.'], en: ['Iquitos – Lagunas boat', 'Over a day’s journey.'], fr: ['Bateau Iquitos – Lagunas', 'Plus d’une journée de trajet.'] },
-        { es: ['Bote al puerto del pueblo', ''], en: ['Boat to the village port', ''], fr: ['Bateau jusqu’au port du village', ''] }
-      ],
-      experiencias: [{ n: { es: 'Campamento en la reserva', en: 'Camp in the reserve', fr: 'Camp dans la réserve' }, d: { es: '3 días · 2 noches', en: '3 days · 2 nights', fr: '3 jours · 2 nuits' }, p: 120 }],
-      leyenda: 'yacumama'
     }
   ],
 

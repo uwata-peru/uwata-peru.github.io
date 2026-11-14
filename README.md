@@ -6,7 +6,7 @@ El viajero descubre las comunidades en un mapa, solicita su visita por WhatsApp,
 
 👉 **Web:** https://uwata-peru.github.io
 
-> ⚠️ Las comunidades marcadas como "ejemplo", los precios, los cuidadores y el número de WhatsApp son datos de ejemplo. Las ilustraciones reemplazan a las fotos reales.
+> ⚠️ Las comunidades marcadas como "ejemplo", los precios, los cuidadores y el número de WhatsApp son datos de ejemplo. Las fotos de las comunidades son imágenes referenciales hechas con IA; se reemplazarán por fotos reales.
 
 ## Qué tiene
 
@@ -27,6 +27,8 @@ Casi todo se cambia en **`js/data.js`**:
 | Comunidades | lista `comunidades` |
 | Ubicación de una comunidad | `lat` y `lng`. En Google Maps, mantén presionado el lugar y copia los dos números. Si están en `null`, no aparece en el mapa. |
 | Zona que se ve al abrir el mapa | `config.vistaInicial` |
+| Foto de una comunidad | `foto` (grande) y `fotoMini` (círculo del mapa), en la carpeta `img/fotos/` |
+| Ocultar una comunidad sin borrarla | `oculta: true` |
 | Leyendas | `leyendas` |
 | Árboles sembrados | `arboles` (cada uno con su código) |
 | Precios de los planes | `planes` |
@@ -42,5 +44,6 @@ js/data.js        datos (comunidades, leyendas, árboles, precios)
 js/i18n.js        textos en español, inglés y francés
 js/hero.js        animación de bienvenida
 js/app.js         funcionamiento (mapa, vistas, WhatsApp, QR)
+img/fotos/        fotos de las comunidades (imágenes referenciales hechas con IA)
 vendor/           librerías: Leaflet (mapa), MarkerCluster (agrupar) y qrcode-generator (QR)
 ```

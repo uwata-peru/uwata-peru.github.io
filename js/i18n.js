@@ -18,7 +18,7 @@ window.UWATA_T = {
     iqTitle: 'Iquitos', iqText: 'Punto de partida. Solo se llega en avión o por río.',
     iqTips: ['Repelente, ropa ligera de manga larga y poncho.', 'Efectivo: en las comunidades casi no hay pago con tarjeta.', 'Consulta a tu médico por la vacuna contra la fiebre amarilla.'],
     ex: 'ejemplo', real: 'comunidad real', noMap: 'ubicación por confirmar',
-    see: 'Ver comunidad', back: 'Volver', illus: 'Ilustración de ejemplo',
+    see: 'Ver comunidad', back: 'Volver', illus: 'Ilustración de ejemplo', ref: 'Imagen referencial',
     fromIq: 'desde Iquitos', toConfirm: 'Por confirmar',
     why: 'Qué vivirás', how: 'Cómo llegar', history: 'Historia del pueblo', tips: 'Antes de viajar',
     exps: 'Experiencias', perPerson: 'por persona', request: 'Solicitar visita',
@@ -56,7 +56,7 @@ window.UWATA_T = {
     careVoice: (n, h) => `Hola, te saluda quien cuida a ${n}. Este mes la regamos, limpiamos alrededor y ya mide ${h} centímetros. Un abrazo desde la Amazonía.`,
     aboutTitle: 'Sobre Uwata',
     aboutTx: 'Uwata conecta a viajeros con los pueblos ribereños de Loreto, Perú: visitas una comunidad, siembras un árbol y lo sigues viendo crecer desde tu país.',
-    aboutNote: 'Las comunidades marcadas como “ejemplo”, los precios y el número de WhatsApp son de ejemplo. Las ilustraciones reemplazan a las fotos reales.',
+    aboutNote: 'Las comunidades marcadas como “ejemplo”, los precios y el número de WhatsApp son de ejemplo. Las fotos son imágenes referenciales; pronto las reemplazaremos por fotos reales de cada comunidad.',
     about: 'Sobre Uwata'
   },
 
@@ -78,7 +78,7 @@ window.UWATA_T = {
     iqTitle: 'Iquitos', iqText: 'Starting point. Reachable only by plane or by river.',
     iqTips: ['Repellent, light long-sleeved clothes and a poncho.', 'Cash: cards are rarely accepted in the communities.', 'Ask your doctor about the yellow fever vaccine.'],
     ex: 'example', real: 'real community', noMap: 'location to be confirmed',
-    see: 'See community', back: 'Back', illus: 'Sample illustration',
+    see: 'See community', back: 'Back', illus: 'Sample illustration', ref: 'Reference image',
     fromIq: 'from Iquitos', toConfirm: 'To be confirmed',
     why: 'What you will live', how: 'How to get there', history: 'Village history', tips: 'Before you travel',
     exps: 'Experiences', perPerson: 'per person', request: 'Request a visit',
@@ -116,7 +116,7 @@ window.UWATA_T = {
     careVoice: (n, h) => `Hello, this is the person who looks after ${n}. This month we watered it, cleared around it and it is now ${h} centimeters tall. Warm wishes from the Amazon.`,
     aboutTitle: 'About Uwata',
     aboutTx: 'Uwata connects travelers with the riverside villages of Loreto, Peru: visit a community, plant a tree and keep watching it grow from home.',
-    aboutNote: 'Communities marked “example”, prices and the WhatsApp number are samples. Illustrations stand in for real photos.',
+    aboutNote: 'Communities marked “example”, prices and the WhatsApp number are samples. Photos are reference images; they will soon be replaced with real photos of each community.',
     about: 'About Uwata'
   },
 
@@ -138,7 +138,7 @@ window.UWATA_T = {
     iqTitle: 'Iquitos', iqText: 'Point de départ. Accessible seulement en avion ou par le fleuve.',
     iqTips: ['Répulsif, vêtements légers à manches longues et poncho.', 'Liquide : la carte est rarement acceptée dans les communautés.', 'Demandez à votre médecin pour le vaccin contre la fièvre jaune.'],
     ex: 'exemple', real: 'communauté réelle', noMap: 'emplacement à confirmer',
-    see: 'Voir la communauté', back: 'Retour', illus: 'Illustration d’exemple',
+    see: 'Voir la communauté', back: 'Retour', illus: 'Illustration d’exemple', ref: 'Image de référence',
     fromIq: 'depuis Iquitos', toConfirm: 'À confirmer',
     why: 'Ce que vous vivrez', how: 'Comment y aller', history: 'Histoire du village', tips: 'Avant de partir',
     exps: 'Expériences', perPerson: 'par personne', request: 'Demander une visite',
@@ -176,7 +176,7 @@ window.UWATA_T = {
     careVoice: (n, h) => `Bonjour, c’est la personne qui prend soin de ${n}. Ce mois-ci, nous l’avons arrosé, nous avons désherbé autour et il mesure maintenant ${h} centimètres. Nous vous embrassons depuis l’Amazonie.`,
     aboutTitle: 'À propos d’Uwata',
     aboutTx: 'Uwata relie les voyageurs aux villages riverains du Loreto, au Pérou : vous visitez une communauté, plantez un arbre et continuez à le voir grandir depuis chez vous.',
-    aboutNote: 'Les communautés marquées « exemple », les prix et le numéro WhatsApp sont des exemples. Les illustrations remplacent les vraies photos.',
+    aboutNote: 'Les communautés marquées « exemple », les prix et le numéro WhatsApp sont des exemples. Les photos sont des images de référence ; elles seront bientôt remplacées par de vraies photos de chaque communauté.',
     about: 'À propos'
   }
 };

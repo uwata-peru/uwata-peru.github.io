@@ -17,7 +17,7 @@ window.UWATA = {
   },
 
   // Iquitos: punto de partida (coordenadas reales del centro de la ciudad)
-  iquitos: { lat: -3.7437, lng: -73.2516 },
+  iquitos: { nombre: 'Iquitos', lat: -3.7437, lng: -73.2516, foto: 'img/fotos/iquitos.webp', fotoMini: 'img/fotos/iquitos-mini.webp' },
 
   // Especies que se pueden sembrar (cada comunidad elige cuáles ofrece)
   especies: {

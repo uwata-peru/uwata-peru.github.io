@@ -150,7 +150,7 @@
       markers[c.id] = m; cluster.addLayer(m);
     });
     map.addLayer(cluster);
-    const iq = Lf.marker([D.iquitos.lat, D.iquitos.lng], { zIndexOffset: -500, title: 'Iquitos', icon: Lf.divIcon({ className: 'pin city', iconSize: [0, 0], iconAnchor: [0, 0], html: `<div class="wrapp"><span class="ph">${scene(0, 'city')}</span><span class="tip"></span><span class="lbl">Iquitos</span></div>` }) }).addTo(map);
+    const iq = Lf.marker([D.iquitos.lat, D.iquitos.lng], { zIndexOffset: -500, title: 'Iquitos', icon: Lf.divIcon({ className: 'pin city', iconSize: [0, 0], iconAnchor: [0, 0], html: `<div class="wrapp"><span class="ph">${foto(D.iquitos, true, 0, 'city')}</span><span class="tip"></span><span class="lbl">Iquitos</span></div>` }) }).addTo(map);
     if (onClick) iq.on('click', () => onClick('iquitos'));
     return { cluster, markers, iq };
   }
@@ -210,7 +210,7 @@
     if (!S.sel || !S.mapOpen) { pk.hidden = true; document.body.dataset.peek = '0'; return; }
     let html;
     if (S.sel === 'iquitos') {
-      html = `<div class="thumb">${scene(2, 'city')}</div><div><h3>${t('iqTitle')}</h3><p>${t('iqText')}</p></div>`;
+      html = `<div class="thumb">${foto(D.iquitos, true, 2, 'city')}</div><div><h3>${t('iqTitle')}</h3><p>${t('iqText')}</p></div>`;
     } else {
       const c = byId(S.sel), d = km(D.iquitos, c);
       html = `<div class="thumb">${foto(c, true, c.seed, c.escena)}</div><div><h3>${esc(c.nombre)}</h3><p>${esc(L(c.lema))}</p><p style="font-weight:600;color:var(--tinta);margin-top:2px">${d ? `≈ ${d} km · ` : ''}${esc(L(c.rio))}</p><div class="row" style="margin-top:8px"><button class="btn sm pink" data-open="${c.id}">${t('see')}</button></div></div>`;

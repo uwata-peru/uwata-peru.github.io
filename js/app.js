@@ -388,9 +388,13 @@
         <div class="country-row"><input class="in" id="rq-country" list="rq-countries" placeholder="${esc(t('countryPh'))}" autocomplete="country-name">
           <button type="button" class="chip-pe" data-act="frompe" data-pe="${esc(peru)}" aria-pressed="false">🇵🇪 ${t('fromPeru')}</button></div>
         <datalist id="rq-countries">${[peru].concat(PAISES.map(paisNombre)).map(n => `<option value="${esc(n)}">`).join('')}</datalist>
-        <label class="check"><input type="checkbox" id="rq-tree" checked> ${t('wantTree')}</label>
+        <fieldset class="treebox"><legend>🌱 ${t('treeQ')}</legend>
+          <details class="tb-more"><summary>${t('moreInfo')}</summary><p>${t('treeInfo')}</p></details>
+          <div class="tb-opts">${t('treeOpts').map((o, i) => `<label class="opt"><input type="radio" name="rq-tree" value="${i}"><span>${esc(o)}</span></label>`).join('')}</div>
+        </fieldset>
         <p class="warn" id="rq-err" role="alert" hidden></p>
         <button class="btn wa block" type="submit" style="margin-top:16px">${IC.wa}${t('sendWa')}</button>
+        <p class="note" style="margin-top:8px;text-align:center">${t('freeReq')}</p>
         ${D.config.whatsappEsEjemplo ? `<p class="note" style="margin-top:8px;text-align:center">${t('waExample')}</p>` : ''}
         <button class="btn ghost block" type="button" data-act="closesheet" style="margin-top:10px">${t('close')}</button>
       </form>`);
@@ -414,9 +418,10 @@
     const people = Math.max(parseInt(q('#rq-people').value, 10) || 1, 1);
     const lista = names.map((n, i) => `   ${i + 1}. ${n || t('nameTbd')}`).join('\n') + (people > names.length ? `\n   (+${people - names.length})` : '');
     const st = form.querySelector('input[name="rq-stay"]:checked');
+    const tr = form.querySelector('input[name="rq-tree"]:checked');
     window.open(waLink(t('waVisit')({
       com: c.nombre, date: fmtDate(new Date(date + 'T12:00')), people, names: lista,
-      stay: t('stayOpts')[st ? +st.value : 3], country: q('#rq-country').value.trim(), tree: q('#rq-tree').checked
+      stay: t('stayOpts')[st ? +st.value : 3], country: q('#rq-country').value.trim(), tree: tr ? t('treeOpts')[+tr.value] : ''
     })), '_blank', 'noopener');
   }
   function openAbout() {

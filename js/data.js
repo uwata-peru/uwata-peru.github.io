@@ -11,9 +11,7 @@ window.UWATA = {
     // ⚠️ Número DE EJEMPLO: cámbialo por el real y pon whatsappEsEjemplo: false
     whatsapp: '51999999999',
     whatsappEsEjemplo: true,
-    moneda: 'US$',
-    // Zona que se ve al abrir el mapa (Loreto). Se puede alejar libremente.
-    vistaInicial: [[-6.2, -76.6], [-1.6, -70.2]]
+    moneda: 'US$'
   },
 
   // Iquitos: punto de partida (coordenadas reales del centro de la ciudad)
@@ -75,7 +73,7 @@ window.UWATA = {
     {
       id: 'lupuna', nombre: 'Puerto Lupuna', ejemplo: true,
       foto: 'img/fotos/lupuna.webp', fotoMini: 'img/fotos/lupuna-mini.webp', // imagen referencial (IA)
-      lat: -3.83, lng: -73.62, seed: 1, escena: 'forest',
+      lat: -3.88, lng: -73.78, seed: 1, escena: 'forest',
       rio: { es: 'Río Nanay', en: 'Nanay River', fr: 'Rivière Nanay' },
       tiempo: { es: '≈ 1 h', en: '≈ 1 h', fr: '≈ 1 h' },
       especies: ['camu', 'shihuahuaco'],
@@ -92,7 +90,7 @@ window.UWATA = {
     {
       id: 'aguajal', nombre: 'Caño Aguajal', ejemplo: true,
       foto: 'img/fotos/aguajal.webp', fotoMini: 'img/fotos/aguajal-mini.webp', // imagen referencial (IA)
-      lat: -4.43, lng: -73.7, seed: 6, escena: 'village',
+      lat: -4.48, lng: -74.38, seed: 6, escena: 'village',
       rio: { es: 'Río Marañón', en: 'Marañón River', fr: 'Fleuve Marañón' },
       tiempo: { es: '≈ 3 h', en: '≈ 3 h', fr: '≈ 3 h' },
       especies: ['aguaje', 'camu'],
@@ -126,7 +124,7 @@ window.UWATA = {
     {
       id: 'ojodecocha', nombre: 'Ojo de Cocha', ejemplo: true,
       foto: 'img/fotos/ojodecocha.webp', fotoMini: 'img/fotos/ojodecocha-mini.webp', // imagen referencial (IA)
-      lat: -4.95, lng: -73.82, seed: 7, escena: 'village',
+      lat: -5.1, lng: -73.78, seed: 7, escena: 'village',
       rio: { es: 'Río Ucayali', en: 'Ucayali River', fr: 'Fleuve Ucayali' },
       tiempo: { es: '≈ 6 h', en: '≈ 6 h', fr: '≈ 6 h' },
       especies: ['camu', 'shihuahuaco'],
@@ -143,7 +141,7 @@ window.UWATA = {
     {
       id: 'nuevopaiche', nombre: 'Nuevo Paiche', ejemplo: true,
       foto: 'img/fotos/nuevopaiche.webp', fotoMini: 'img/fotos/nuevopaiche-mini.webp', // imagen referencial (IA)
-      lat: -2.75, lng: -73.45, seed: 8, escena: 'forest',
+      lat: -2.55, lng: -73.6, seed: 8, escena: 'forest',
       rio: { es: 'Río Napo', en: 'Napo River', fr: 'Rivière Napo' },
       tiempo: { es: '≈ 8 h', en: '≈ 8 h', fr: '≈ 8 h' },
       especies: ['shihuahuaco', 'aguaje'],

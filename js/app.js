@@ -138,18 +138,20 @@
     sat: () => window.L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', { maxZoom: 18, attribution: 'Imágenes &copy; Esri' })
   };
   const pinHTML = c => `<div class="wrapp"><span class="ph">${foto(c, true, c.seed, c.escena)}</span><span class="tip"></span><span class="lbl">${esc(c.nombre)}</span></div>`;
-  function addMarkers(map, onClick) {
+  // Zona donde están las comunidades (+ Iquitos), para encuadrar el mapa
+  const zona = () => window.L.latLngBounds(onMap().map(c => [c.lat, c.lng]).concat([[D.iquitos.lat, D.iquitos.lng]]));
+  function addMarkers(map, onClick, sinAgrupar) {
     const Lf = window.L, markers = {};
     const cluster = Lf.markerClusterGroup({
-      maxClusterRadius: 80, showCoverageOnHover: false, spiderfyOnMaxZoom: true,
+      maxClusterRadius: 40, showCoverageOnHover: false, spiderfyOnMaxZoom: true,
       iconCreateFunction: cl => Lf.divIcon({ className: 'cluster', iconSize: [0, 0], iconAnchor: [0, 0], html: `<div><b>${cl.getChildCount()}</b> ${esc(t('communities'))}</div>` })
     });
     onMap().forEach(c => {
       const m = Lf.marker([c.lat, c.lng], { icon: Lf.divIcon({ className: 'pin', iconSize: [0, 0], iconAnchor: [0, 0], html: pinHTML(c) }), title: c.nombre });
       if (onClick) m.on('click', () => onClick(c.id));
-      markers[c.id] = m; cluster.addLayer(m);
+      markers[c.id] = m; if (sinAgrupar) m.addTo(map); else cluster.addLayer(m);
     });
-    map.addLayer(cluster);
+    if (!sinAgrupar) map.addLayer(cluster);
     const iq = Lf.marker([D.iquitos.lat, D.iquitos.lng], { zIndexOffset: -500, title: 'Iquitos', icon: Lf.divIcon({ className: 'pin city', iconSize: [0, 0], iconAnchor: [0, 0], html: `<div class="wrapp"><span class="ph">${foto(D.iquitos, true, 0, 'city')}</span><span class="tip"></span><span class="lbl">Iquitos</span></div>` }) }).addTo(map);
     if (onClick) iq.on('click', () => onClick('iquitos'));
     return { cluster, markers, iq };
@@ -161,21 +163,22 @@
     if (preview) { preview.remove(); preview = null; }
     const el = document.getElementById('mapPreview');
     if (!el || !window.L) return;
-    preview = window.L.map(el, { zoomControl: false, attributionControl: true, dragging: false, touchZoom: false, scrollWheelZoom: false, doubleClickZoom: false, boxZoom: false, keyboard: false, tap: false });
+    preview = window.L.map(el, { zoomControl: false, attributionControl: true, dragging: false, touchZoom: false, scrollWheelZoom: false, doubleClickZoom: false, boxZoom: false, keyboard: false, tap: false, zoomSnap: 0.25 });
     tiles.map().addTo(preview);
-    addMarkers(preview, null);
-    preview.fitBounds(D.config.vistaInicial);
+    addMarkers(preview, null, true);
+    // arriba deja sitio a los pines; abajo, al botón "Ver mapa completo"
+    preview.fitBounds(zona(), { paddingTopLeft: [60, 70], paddingBottomRight: [60, 100] });
   }
 
   // Mapa completo
   let full = null, fullLayers = null, fullM = null;
   function initFull() {
     if (full || !window.L) return;
-    full = window.L.map('mapFull', { zoomControl: true, attributionControl: true, minZoom: 3, maxZoom: 18 });
+    full = window.L.map('mapFull', { zoomControl: true, attributionControl: true, minZoom: 3, maxZoom: 18, zoomSnap: 0.5 });
     fullLayers = { map: tiles.map(), sat: tiles.sat() };
     fullLayers[S.layer].addTo(full);
     fullM = addMarkers(full, id => selectPlace(id));
-    full.fitBounds(D.config.vistaInicial);
+    full.fitBounds(zona(), { paddingTopLeft: [40, 120], paddingBottomRight: [40, 60] });
   }
   function setLayer(k) {
     if (!full || k === S.layer) return;

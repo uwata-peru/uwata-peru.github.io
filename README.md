@@ -26,7 +26,7 @@ Casi todo se cambia en **`js/data.js`**:
 | Número de WhatsApp | `config.whatsapp` (con código de país, sin `+`). Luego pon `whatsappEsEjemplo: false`. |
 | Comunidades | lista `comunidades` |
 | Ubicación de una comunidad | `lat` y `lng`. En Google Maps, mantén presionado el lugar y copia los dos números. Si están en `null`, no aparece en el mapa. |
-| Zona que se ve al abrir el mapa | `config.vistaInicial` |
+| Zona que se ve al abrir el mapa | Se acomoda sola para que entren todas las comunidades e Iquitos |
 | Foto de una comunidad | `foto` (grande) y `fotoMini` (círculo del mapa), en la carpeta `img/fotos/` |
 | Ocultar una comunidad sin borrarla | `oculta: true` |
 | Leyendas | `leyendas` |

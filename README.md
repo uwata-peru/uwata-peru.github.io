@@ -42,8 +42,8 @@ index.html        estructura de la página
 css/styles.css    diseño
 js/data.js        datos (comunidades, leyendas, árboles, precios)
 js/i18n.js        textos en español, inglés y francés
-js/hero.js        animación de bienvenida
 js/app.js         funcionamiento (mapa, vistas, WhatsApp, QR)
 img/fotos/        fotos de las comunidades (imágenes referenciales hechas con IA)
+img/video/        video de la portada (portada-h.mp4) y su foto mientras carga (portada-h.webp)
 vendor/           librerías: Leaflet (mapa), MarkerCluster (agrupar) y qrcode-generator (QR)
 ```

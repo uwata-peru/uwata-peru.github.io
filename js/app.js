@@ -103,8 +103,8 @@
     pin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6-7-11a7 7 0 0 1 14 0c0 5-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>',
     clock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',
     river: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M3 8c3-2 6 2 9 0s6-2 9 0M3 14c3-2 6 2 9 0s6-2 9 0"/></svg>',
-    play: '<svg viewBox="0 0 16 16" fill="#fff"><path d="M4 2.5v11l9-5.5z"/></svg>',
-    stop: '<svg viewBox="0 0 16 16" fill="#fff"><rect x="3.5" y="3.5" width="9" height="9" rx="1.5"/></svg>',
+    play: '<svg viewBox="0 0 16 16" fill="currentColor"><path d="M4 2.5v11l9-5.5z"/></svg>',
+    stop: '<svg viewBox="0 0 16 16" fill="currentColor"><rect x="3.5" y="3.5" width="9" height="9" rx="1.5"/></svg>',
     wa: '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.6.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.4.1-.2 0-.3 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.2c0-.2-.2-.2-.4-.3z"/></svg>'
   };
 
@@ -251,7 +251,7 @@
   function vHome() {
     const uniq = []; const seen = {};
     visibles().forEach(c => { if (D.leyendas[c.leyenda] && !seen[c.leyenda]) { seen[c.leyenda] = 1; uniq.push(c); } });
-    return `<section class="hero"><canvas id="heroCanvas" aria-hidden="true"></canvas><div class="shade"></div>
+    return `<section class="hero"><video class="hero-vid" src="img/video/portada-h.mp4" poster="img/video/portada-h.webp" autoplay muted loop playsinline preload="auto" aria-hidden="true"></video><div class="shade"></div><span class="cap">${t('ref')}</span>
         <div class="copy"><span class="kicker">${t('heroKicker')}</span><h1>${t('heroTitle')}</h1><p class="sub">${t('heroSub')}</p>
         <button class="btn pink" data-act="explore">${t('explore')} ${IC.down}</button></div></section>
       <div class="wrap">
@@ -430,7 +430,6 @@
   /* ---------------- render ---------------- */
   const panel = document.getElementById('panel');
   const tabsEl = document.getElementById('tabs');
-  let hero = null;
   function render(keepScroll) {
     stopSpeech();
     document.documentElement.lang = S.lang;
@@ -443,13 +442,13 @@
     tabsEl.innerHTML = [['home', 'tabHome'], ['list', 'tabList'], ['legends', 'tabLegends'], ['tree', 'tabTree']]
       .map(([k, lab]) => `<button data-tab="${k}" ${S.tab === k && !S.detail ? 'aria-current="page"' : ''}><span class="ic">${IC[k]}</span>${t(lab)}</button>`).join('');
     const y = panel.scrollTop;
-    if (hero) { hero.destroy(); hero = null; }
     if (preview) { preview.remove(); preview = null; }
     panel.innerHTML = S.detail ? vDetail(S.detail) : ({ home: vHome, list: vList, legends: vLegends, tree: vTree })[S.tab]();
     panel.scrollTop = keepScroll ? y : 0;
     if (!S.detail && S.tab === 'home') {
-      const cv = document.getElementById('heroCanvas');
-      if (cv && window.UwataHero) { try { hero = window.UwataHero(cv); } catch (e) { console.error(e); } }
+      // Video de portada: si la persona prefiere menos movimiento, se queda la foto quieta
+      const v = panel.querySelector('.hero-vid');
+      if (v && window.matchMedia('(prefers-reduced-motion: reduce)').matches) { v.removeAttribute('autoplay'); v.pause(); }
       try { initPreview(); } catch (e) { console.error('mapa', e); }
     }
     if (full && fullM) fullM.cluster.refreshClusters();

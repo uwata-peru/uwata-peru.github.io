@@ -385,11 +385,10 @@
         </fieldset>
         <p class="note" style="margin-top:6px">${t('stayNote')}</p>
         <label class="fl" for="rq-country">${t('country')} <span class="opt-tag">(${t('optional')})</span></label>
-        <div class="country-row"><input class="in" id="rq-country" list="rq-countries" placeholder="${esc(t('countryPh'))}" autocomplete="country-name">
-          <button type="button" class="chip-pe" data-act="frompe" data-pe="${esc(peru)}" aria-pressed="false">🇵🇪 ${t('fromPeru')}</button></div>
+        <input class="in" id="rq-country" list="rq-countries" placeholder="${esc(t('countryPh'))}" autocomplete="country-name">
+        <button type="button" class="chip-pe" data-act="frompe" data-pe="${esc(peru)}" aria-pressed="false">🇵🇪 ${t('fromPeru')}</button>
         <datalist id="rq-countries">${[peru].concat(PAISES.map(paisNombre)).map(n => `<option value="${esc(n)}">`).join('')}</datalist>
         <fieldset class="treebox"><legend>🌱 ${t('treeQ')}</legend>
-          <details class="tb-more"><summary>${t('moreInfo')}</summary><p>${t('treeInfo')}</p></details>
           <div class="tb-opts">${t('treeOpts').map((o, i) => `<label class="opt"><input type="radio" name="rq-tree" value="${i}"><span>${esc(o)}</span></label>`).join('')}</div>
         </fieldset>
         <p class="warn" id="rq-err" role="alert" hidden></p>

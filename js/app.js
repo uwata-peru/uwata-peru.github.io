@@ -245,7 +245,7 @@
     </article>`;
   }
   const lockedRow = (icon, title, sub) => `<div class="locked"><span class="lk">${icon}</span><span><b>${title}</b><small>${sub}</small></span><span class="tag">${t('soon')}</span></div>`;
-  const footer = (about) => `<footer class="foot"><img class="brand" src="img/logo-uwata.png" alt="Uwata" width="96" height="111">Uwata Perú · Loreto${about ? ` · <button class="linkish" data-act="about">${t('about')}</button>` : ''}</footer>`;
+  const footer = (about) => `<footer class="foot"><img class="brand" src="img/logo-uwata.png" alt="Uwata" width="96" height="120">Uwata Perú · Loreto${about ? ` · <button class="linkish" data-act="about">${t('about')}</button>` : ''}</footer>`;
 
   /* ---------------- vistas ---------------- */
   function vHome() {
@@ -380,7 +380,7 @@
     window.open(waLink(t('waVisit')({ com: c.nombre, date, people: form.querySelector('#rq-people').value, exp: L(e.n), tree: form.querySelector('#rq-tree').checked, name })), '_blank', 'noopener');
   }
   function openAbout() {
-    sheetOpen(`<img class="about-logo" src="img/logo-uwata.png" alt="Uwata" width="120" height="139"><h2 style="font-size:26px;color:var(--selva)">${t('aboutTitle')}</h2><p style="margin-top:8px">${t('aboutTx')}</p><p class="note" style="margin-top:12px">${t('aboutNote')}</p><button class="btn block" data-act="closesheet" style="margin-top:16px">${t('close')}</button>`);
+    sheetOpen(`<img class="about-logo" src="img/logo-uwata.png" alt="Uwata" width="120" height="150"><h2 style="font-size:26px;color:var(--selva)">${t('aboutTitle')}</h2><p style="margin-top:8px">${t('aboutTx')}</p><p class="note" style="margin-top:12px">${t('aboutNote')}</p><button class="btn block" data-act="closesheet" style="margin-top:16px">${t('close')}</button>`);
   }
 
   /* ---------------- render ---------------- */

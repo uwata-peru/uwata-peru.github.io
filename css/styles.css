@@ -302,7 +302,7 @@ input[type="date"].in::-webkit-date-and-time-value{text-align:left}
 .top{background:var(--papel);color:var(--selva);border-bottom:1px solid var(--linea)}
 .logo{gap:6px}
 .logo-pin{height:40px;width:auto;display:block}
-.logo-word{height:28px;width:auto;display:block;margin-top:6px}
+.logo-word{height:24px;width:auto;display:block;margin-top:8px}
 .langs{background:#eef2ea}
 .langs button{color:var(--gris)}
 .langs button[aria-pressed="true"]{background:var(--selva);color:#fff}

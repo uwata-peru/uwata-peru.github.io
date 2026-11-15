@@ -208,7 +208,7 @@ details.more .in{padding:0 0 16px}
 .in{width:100%;padding:13px 14px;border-radius:14px;border:1.5px solid var(--linea);background:var(--papel);font-size:16px}
 .in:focus{border-color:var(--selva);outline:none}
 .code-in{font-family:var(--display);font-weight:700;letter-spacing:.08em;text-transform:uppercase;font-size:20px;text-align:center}
-label.fl{display:block;font-weight:700;font-size:14px;color:var(--selva);margin:14px 0 6px}
+label.fl,legend.fl{display:block;font-weight:700;font-size:14px;color:var(--selva);margin:14px 0 6px}
 .codebox{display:grid;gap:10px}
 .linkish{border:0;background:none;padding:0;color:var(--bufeo);font-weight:700;text-decoration:underline}
 .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
@@ -329,3 +329,15 @@ input[type="date"].in::-webkit-date-and-time-value{text-align:left}
 #mapPreview .pin .lbl{font-size:11px;padding:1px 7px}
 /* Iquitos: su nombre va arriba para no chocar con las comunidades vecinas */
 .pin.city .lbl{top:auto;bottom:100%;margin:0 0 3px}
+/* Formulario de visita: dónde quedarse, país */
+.opts{border:0;padding:0;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.opts legend{padding:0;grid-column:1/-1}
+.opt{display:flex;align-items:center;gap:8px;background:var(--papel);border:1.5px solid var(--linea);border-radius:14px;padding:10px 12px;font-size:14px;line-height:1.25;cursor:pointer}
+.opt input{width:18px;height:18px;flex:none;accent-color:var(--selva);margin:0}
+.opt:has(input:checked){border-color:var(--selva);background:#e6f0e8;font-weight:600}
+.opt-tag{font-weight:500;color:var(--gris);font-size:12px}
+.country-row{display:flex;gap:8px;align-items:stretch}
+.country-row .in{flex:1;min-width:0}
+.chip-pe{flex:none;border:1.5px solid var(--linea);background:var(--papel);border-radius:14px;padding:0 12px;font-size:14px;font-weight:600;color:var(--tinta);white-space:nowrap}
+.chip-pe[aria-pressed="true"]{border-color:var(--selva);background:#e6f0e8;color:var(--selva)}
+.note.big{color:var(--selva);font-weight:600}

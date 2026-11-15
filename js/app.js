@@ -355,29 +355,69 @@
   const sheet = document.getElementById('sheet');
   function sheetOpen(html) { sheet.innerHTML = `<div class="panel2">${html}</div>`; sheet.hidden = false; const f = sheet.querySelector('input,select,button'); if (f) f.focus(); }
   function sheetClose() { sheet.hidden = true; sheet.innerHTML = ''; }
+  // Países para las sugerencias (el nombre sale en el idioma elegido)
+  const PAISES = 'AR BO BR CL CO EC PY UY VE MX CR PA GT HN SV NI CU DO PR US CA ES FR DE IT PT NL BE CH AT GB IE SE NO DK FI PL CZ RU UA GR TR IL CN JP KR IN TH VN ID PH SG MY AU NZ ZA EG MA NG KE'.split(' ');
+  function paisNombre(code) {
+    try { return new Intl.DisplayNames([S.lang], { type: 'region' }).of(code); } catch (e) { return code === 'PE' ? 'Perú' : code; }
+  }
+  const MAX_NOMBRES = 10;
+  function nameFields(n, prev) {
+    const k = Math.min(Math.max(n || 1, 1), MAX_NOMBRES);
+    let h = '';
+    for (let i = 1; i <= k; i++) {
+      const label = i === 1 ? t('yourName') : t('companion')(i);
+      h += `<label class="fl" for="rq-n${i}">${label}</label><input class="in rq-name" id="rq-n${i}" value="${esc(prev[i - 1] || '')}"${i === 1 ? ' autocomplete="name"' : ''}>`;
+    }
+    h += `<p class="note" style="margin-top:6px">${t('nameNote')}</p>`;
+    if (n > MAX_NOMBRES) h += `<p class="note big" style="margin-top:6px">${t('bigGroup')}</p>`;
+    return h;
+  }
   function openRequest(id) {
     const c = byId(id), today = new Date().toISOString().slice(0, 10);
+    const peru = paisNombre('PE');
     sheetOpen(`<h2 style="font-size:26px;color:var(--selva)">${t('reqTitle')}</h2><p style="color:var(--gris);margin-top:4px">${esc(c.nombre)} · ${t('reqSub')}</p>
       <form data-form="req" data-com="${c.id}">
         <div class="grid2"><div><label class="fl" for="rq-date">${t('date')}</label><input class="in" type="date" id="rq-date" min="${today}"></div>
-        <div><label class="fl" for="rq-people">${t('people')}</label><input class="in" type="number" id="rq-people" min="1" max="20" value="2"></div></div>
-        <label class="fl" for="rq-exp">${t('experience')}</label>
-        <select class="in" id="rq-exp">${c.experiencias.map((e, i) => `<option value="${i}">${esc(L(e.n))} · ${money(e.p)}</option>`).join('')}</select>
+        <div><label class="fl" for="rq-people">${t('people')}</label><input class="in" type="number" inputmode="numeric" id="rq-people" min="1" max="99" value="1"></div></div>
+        <div id="rq-names">${nameFields(1, [])}</div>
+        <fieldset class="opts"><legend class="fl">${t('stay')}</legend>
+          ${t('stayOpts').map((o, i) => `<label class="opt"><input type="radio" name="rq-stay" value="${i}"${i === 3 ? ' checked' : ''}><span>${esc(o)}</span></label>`).join('')}
+        </fieldset>
+        <p class="note" style="margin-top:6px">${t('stayNote')}</p>
+        <label class="fl" for="rq-country">${t('country')} <span class="opt-tag">(${t('optional')})</span></label>
+        <div class="country-row"><input class="in" id="rq-country" list="rq-countries" placeholder="${esc(t('countryPh'))}" autocomplete="country-name">
+          <button type="button" class="chip-pe" data-act="frompe" data-pe="${esc(peru)}" aria-pressed="false">🇵🇪 ${t('fromPeru')}</button></div>
+        <datalist id="rq-countries">${[peru].concat(PAISES.map(paisNombre)).map(n => `<option value="${esc(n)}">`).join('')}</datalist>
         <label class="check"><input type="checkbox" id="rq-tree" checked> ${t('wantTree')}</label>
-        <label class="fl" for="rq-name">${t('yourName')}</label><input class="in" id="rq-name" autocomplete="name">
         <p class="warn" id="rq-err" role="alert" hidden></p>
         <button class="btn wa block" type="submit" style="margin-top:16px">${IC.wa}${t('sendWa')}</button>
         ${D.config.whatsappEsEjemplo ? `<p class="note" style="margin-top:8px;text-align:center">${t('waExample')}</p>` : ''}
         <button class="btn ghost block" type="button" data-act="closesheet" style="margin-top:10px">${t('close')}</button>
       </form>`);
   }
+  // Cuando cambian las personas, salen tantos campos de nombre como personas (hasta 10)
+  sheet.addEventListener('input', e => {
+    const f = e.target.closest('form[data-form="req"]'); if (!f) return;
+    if (e.target.id === 'rq-people') {
+      const prev = [...f.querySelectorAll('.rq-name')].map(i => i.value);
+      f.querySelector('#rq-names').innerHTML = nameFields(parseInt(e.target.value, 10) || 1, prev);
+    }
+    if (e.target.id === 'rq-country') {
+      const b = f.querySelector('.chip-pe'); b.setAttribute('aria-pressed', e.target.value.trim() === b.dataset.pe);
+    }
+  });
   function submitRequest(form) {
-    const c = byId(form.dataset.com);
-    const date = form.querySelector('#rq-date').value, name = form.querySelector('#rq-name').value.trim();
-    const err = form.querySelector('#rq-err');
-    if (!date || !name) { err.textContent = t('needReq'); err.hidden = false; return; }
-    const e = c.experiencias[+form.querySelector('#rq-exp').value];
-    window.open(waLink(t('waVisit')({ com: c.nombre, date, people: form.querySelector('#rq-people').value, exp: L(e.n), tree: form.querySelector('#rq-tree').checked, name })), '_blank', 'noopener');
+    const c = byId(form.dataset.com), q = s => form.querySelector(s);
+    const date = q('#rq-date').value, names = [...form.querySelectorAll('.rq-name')].map(i => i.value.trim());
+    const err = q('#rq-err');
+    if (!date || !names[0]) { err.textContent = t('needReq'); err.hidden = false; return; }
+    const people = Math.max(parseInt(q('#rq-people').value, 10) || 1, 1);
+    const lista = names.map((n, i) => `   ${i + 1}. ${n || t('nameTbd')}`).join('\n') + (people > names.length ? `\n   (+${people - names.length})` : '');
+    const st = form.querySelector('input[name="rq-stay"]:checked');
+    window.open(waLink(t('waVisit')({
+      com: c.nombre, date: fmtDate(new Date(date + 'T12:00')), people, names: lista,
+      stay: t('stayOpts')[st ? +st.value : 3], country: q('#rq-country').value.trim(), tree: q('#rq-tree').checked
+    })), '_blank', 'noopener');
   }
   function openAbout() {
     sheetOpen(`<img class="about-logo" src="img/logo-uwata.png" alt="Uwata" width="120" height="150"><h2 style="font-size:26px;color:var(--selva)">${t('aboutTitle')}</h2><p style="margin-top:8px">${t('aboutTx')}</p><p class="note" style="margin-top:12px">${t('aboutNote')}</p><button class="btn block" data-act="closesheet" style="margin-top:16px">${t('close')}</button>`);
@@ -454,6 +494,7 @@
       case 'closepeek': S.sel = null; renderPeek(); markActive(); return;
       case 'closesheet': sheetClose(); return;
       case 'about': openAbout(); return;
+      case 'frompe': { const i = document.getElementById('rq-country'); if (i) { i.value = el.dataset.pe; el.setAttribute('aria-pressed', 'true'); } return; }
       case 'logout': S.treeCode = ''; S.treeError = false; store.set('uwata.tree', ''); render(); return;
     }
   });

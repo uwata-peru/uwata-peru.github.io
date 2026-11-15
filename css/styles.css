@@ -352,3 +352,7 @@ input[type="date"].in::-webkit-date-and-time-value{text-align:left}
 .tb-opts .opt input{width:16px;height:16px}
 /* Portada en pantallas anchas: un poco más de sombra a la izquierda, detrás del texto */
 @media (min-width:900px){.hero .shade{background:linear-gradient(90deg,rgba(4,24,12,.5) 0%,rgba(4,24,12,.15) 45%,rgba(4,24,12,0) 70%),linear-gradient(180deg,rgba(4,24,12,.2) 0%,rgba(4,24,12,0) 30%,rgba(4,24,12,.3) 60%,rgba(4,24,12,.75) 100%)}}
+/* Portada: acercamiento lentísimo (como en los documentales), va y vuelve */
+.hero-vid{transform-origin:45% 60%;animation:acercar 20s ease-in-out infinite alternate;will-change:transform}
+@keyframes acercar{from{transform:scale(1)}to{transform:scale(1.09)}}
+@media (prefers-reduced-motion:reduce){.hero-vid{animation:none}}

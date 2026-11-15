@@ -8,9 +8,9 @@ window.UWATA = {
 
   config: {
     // Número de WhatsApp de Uwata, con código de país y sin "+" ni espacios.
-    // ⚠️ Número DE EJEMPLO: cámbialo por el real y pon whatsappEsEjemplo: false
-    whatsapp: '51999999999',
-    whatsappEsEjemplo: true,
+    // Número de WhatsApp (con 51 de Perú adelante, sin + ni espacios)
+    whatsapp: '51991400969',
+    whatsappEsEjemplo: false,
     moneda: 'US$'
   },
 

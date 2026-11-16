@@ -258,6 +258,18 @@
   const footer = (about) => `<footer class="foot"><img class="brand" src="img/logo-uwata.png" alt="Uwata" width="96" height="120">${redesHTML()}Uwata Perú · Loreto${about ? ` · <button class="linkish" data-act="about">${t('about')}</button>` : ''}</footer>`;
 
   /* ---------------- vistas ---------------- */
+  // Sección "Siembra tu árbol": foto real + 3 pasos (+ botones en la portada)
+  const STEP_IC = [
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 15h20l-3 4H5z"/><path d="M12 15V4l6 9"/><path d="M12 6l-5 7h5"/><path d="M3 21c1.5 0 1.5-1 3-1s1.5 1 3 1 1.5-1 3-1 1.5 1 3 1 1.5-1 3-1 1.5 1 3 1"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21v-9"/><path d="M12 12c0-4 3-7 8-7 0 5-3 8-8 7z"/><path d="M12 14c0-3-2-5-7-5 0 4 3 6 7 5z"/><path d="M5 21h14"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/><path d="M9 11l2 2 4-4"/></svg>'
+  ];
+  const treeBand = cta => `<div class="band2"><div class="b2-img"><img src="img/fotos/siembra.webp" alt="" loading="lazy" decoding="async"><span class="cap">${t('ref')}</span></div>
+    <div class="b2-body"><span class="kicker">${t('treeKicker')}</span><h2>${t('treeTitleHome')}</h2>
+      <ol class="steps-v">${['how1', 'how2', 'how3'].map((k, i) => `<li><span class="n">${STEP_IC[i]}</span><div><small>${t('step')} ${i + 1}</small><b>${t(k)}</b><p>${t(k + 't')}</p></div></li>`).join('')}</ol>
+      ${cta ? `<div class="b2-cta"><button class="btn pink" data-tab="list">🌱 ${t('plantCta')}</button><button class="linkbtn" data-tab="tree">${t('haveCode')} →</button></div>` : ''}
+    </div></div>`;
+
   function vHome() {
     const uniq = []; const seen = {};
     visibles().forEach(c => { if (D.leyendas[c.leyenda] && !seen[c.leyenda]) { seen[c.leyenda] = 1; uniq.push(c); } });
@@ -269,9 +281,7 @@
           <div class="map-card"><div id="mapPreview"></div><button class="cover" data-act="openmap" aria-label="${t('fullMap')}"><span class="btn pink">${IC.map} ${t('fullMap')}</span></button></div></section>
         <section class="sec"><div class="row" style="justify-content:space-between;align-items:flex-end"><div><span class="kicker">${t('commKicker')}</span><h2 class="sec-title" style="margin-bottom:12px">${t('commTitle')}</h2></div><button class="btn ghost sm" data-tab="list" style="margin-bottom:16px">${t('seeAll')}</button></div>
           <div class="carousel">${visibles().map(pcard).join('')}</div></section>
-        <section class="sec"><div class="band"><div><span class="kicker">${t('treeKicker')}</span><h2 style="margin-top:6px">${t('treeTitleHome')}</h2></div>
-          <div class="steps3">${[['how1', 2], ['how2', 4], ['how3', 6]].map(([k, st], i) => `<div class="st"><span class="ill">${sprout(st, 20 + i)}</span><b>${t(k)}</b></div>`).join('')}</div>
-          <div><button class="btn light" data-tab="tree">${t('tabTree')} →</button></div></div></section>
+        <section class="sec">${treeBand(true)}</section>
         <section class="sec"><span class="kicker">${t('legKicker')}</span><h2 class="sec-title">${t('legTitleHome')}</h2>
           <div class="lg-grid">${uniq.slice(0, 3).map(c => legendCard(c, 'H-' + c.id, false)).join('')}</div>
           <div style="margin-top:14px"><button class="btn ghost" data-tab="legends">${t('tabLegends')} →</button></div></section>
@@ -331,8 +341,7 @@
       const save = D.planes[0].precio * p.meses - p.precio;
       return `<div class="plan"><small>${p.meses === 1 ? t('monthly') : `${p.meses} ${t('months')}`}</small><b>${money(p.precio)}</b>${save > 0 ? `<span class="sv">${t('save')} ${money(save)}</span>` : `<small>/ ${t('month')}</small>`}</div>`;
     }).join('');
-    const howBand = `<section class="sec"><div class="band"><h2>${t('treeTitleHome')}</h2>
-        <div class="steps3">${[['how1', 'how1t', 2], ['how2', 'how2t', 4], ['how3', 'how3t', 6]].map(([k, kt, st], i) => `<div class="st"><span class="ill">${sprout(st, 20 + i)}</span><div><b>${t(k)}</b><p style="font-size:14px;color:#cfe0d2;margin-top:2px">${t(kt)}</p></div></div>`).join('')}</div></div></section>
+    const howBand = `<section class="sec">${treeBand(false)}</section>
       <section class="sec" style="padding-top:28px"><h2 class="sec-title" style="font-size:26px">${t('plans')}</h2><div class="plans">${plans}</div><p class="note" style="margin-top:8px">${t('plansNote')}</p>
         <div class="facts2" style="margin-top:14px"><div><span>🤝</span><span>${t('rule1')}</span></div><div><span>🌧️</span><span>${t('rule2')}</span></div></div></section>`;
     const td = S.treeCode && treeData(S.treeCode);

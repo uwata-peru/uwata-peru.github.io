@@ -7,11 +7,12 @@
 window.UWATA = {
 
   config: {
-    // Número de WhatsApp de Uwata, con código de país y sin "+" ni espacios.
     // Número de WhatsApp (con 51 de Perú adelante, sin + ni espacios)
     whatsapp: '51991400969',
     whatsappEsEjemplo: false,
-    moneda: 'US$'
+    moneda: 'US$',
+    // Redes sociales: solo el nombre de usuario, sin @. Si una está vacía (''), no aparece.
+    redes: { instagram: 'uwataperu', tiktok: 'uwataperu', facebook: '' }
   },
 
   // Iquitos: punto de partida (coordenadas reales del centro de la ciudad)

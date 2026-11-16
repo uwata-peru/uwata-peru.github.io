@@ -66,6 +66,7 @@ window.UWATA_T = {
     aboutTitle: 'Sobre Uwata',
     aboutTx: 'Uwata conecta a viajeros con los pueblos ribereños de Loreto, Perú: visitas una comunidad, siembras un árbol y lo sigues viendo crecer desde tu país.',
     aboutNote: 'Las comunidades marcadas como “ejemplo”, los precios y el número de WhatsApp son de ejemplo. Las fotos son imágenes referenciales; pronto las reemplazaremos por fotos reales de cada comunidad.',
+    followUs: 'Síguenos',
     about: 'Sobre Uwata'
   },
 
@@ -135,6 +136,7 @@ window.UWATA_T = {
     aboutTitle: 'About Uwata',
     aboutTx: 'Uwata connects travelers with the riverside villages of Loreto, Peru: visit a community, plant a tree and keep watching it grow from home.',
     aboutNote: 'Communities marked “example”, prices and the WhatsApp number are samples. Photos are reference images; they will soon be replaced with real photos of each community.',
+    followUs: 'Follow us',
     about: 'About Uwata'
   },
 
@@ -204,6 +206,7 @@ window.UWATA_T = {
     aboutTitle: 'À propos d’Uwata',
     aboutTx: 'Uwata relie les voyageurs aux villages riverains du Loreto, au Pérou : vous visitez une communauté, plantez un arbre et continuez à le voir grandir depuis chez vous.',
     aboutNote: 'Les communautés marquées « exemple », les prix et le numéro WhatsApp sont des exemples. Les photos sont des images de référence ; elles seront bientôt remplacées par de vraies photos de chaque communauté.',
+    followUs: 'Suivez-nous',
     about: 'À propos'
   }
 };

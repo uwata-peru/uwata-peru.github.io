@@ -245,7 +245,17 @@
     </article>`;
   }
   const lockedRow = (icon, title, sub) => `<div class="locked"><span class="lk">${icon}</span><span><b>${title}</b><small>${sub}</small></span><span class="tag">${t('soon')}</span></div>`;
-  const footer = (about) => `<footer class="foot"><img class="brand" src="img/logo-uwata.png" alt="Uwata" width="96" height="120">Uwata Perú · Loreto${about ? ` · <button class="linkish" data-act="about">${t('about')}</button>` : ''}</footer>`;
+  const REDES = {
+    instagram: { url: u => `https://www.instagram.com/${u}/`, nombre: 'Instagram', ic: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>' },
+    tiktok: { url: u => `https://www.tiktok.com/@${u}`, nombre: 'TikTok', ic: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.5 3c.4 2.3 1.9 3.9 4.2 4.1v3.1a7.6 7.6 0 0 1-4.2-1.3v6.3a5.8 5.8 0 1 1-5.8-5.8c.3 0 .6 0 .9.1v3.2a2.7 2.7 0 1 0 1.9 2.6V3h3z"/></svg>' },
+    facebook: { url: u => `https://www.facebook.com/${u}`, nombre: 'Facebook', ic: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8.5V6.8c0-.8.5-1 .9-1H17V2.2L14.1 2C10.9 2 10.2 4.4 10.2 6v2.5H8V12h2.2v10H14V12h2.7l.4-3.5H14z"/></svg>' }
+  };
+  const redesHTML = () => {
+    const r = D.config.redes || {};
+    const items = Object.keys(REDES).filter(k => r[k]).map(k => `<a class="red" href="${REDES[k].url(r[k])}" target="_blank" rel="noopener" aria-label="${REDES[k].nombre} @${esc(r[k])}">${REDES[k].ic}</a>`).join('');
+    return items ? `<div class="redes"><span class="redes-t">${t('followUs')}</span><div class="redes-i">${items}</div><span class="redes-u">@${esc(r.instagram || r.tiktok || r.facebook)}</span></div>` : '';
+  };
+  const footer = (about) => `<footer class="foot"><img class="brand" src="img/logo-uwata.png" alt="Uwata" width="96" height="120">${redesHTML()}Uwata Perú · Loreto${about ? ` · <button class="linkish" data-act="about">${t('about')}</button>` : ''}</footer>`;
 
   /* ---------------- vistas ---------------- */
   function vHome() {
